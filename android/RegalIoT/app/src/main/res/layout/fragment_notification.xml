@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/empty_notifications"
-        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:textSize="18dp"/>
+
 
 </FrameLayout>
