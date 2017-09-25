@@ -17,5 +17,5 @@
     <string name="title_status">Status</string>
     <string name="title_history">History</string>
     <string name="title_notifications">Notifications</string>
-    <string name="empty_notifications">Warnings and important notifications, such as firmware updates, will show up here</string>
+    <string name="empty_notifications">Warnings and important notifications, such as firmware updates, will show up here.</string>
 </resources>
