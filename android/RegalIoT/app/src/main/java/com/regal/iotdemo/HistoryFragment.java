@@ -5,12 +5,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 public class HistoryFragment extends Fragment {
+
     public static HistoryFragment newInstance() {
         HistoryFragment fragment = new HistoryFragment();
         return fragment;
@@ -26,6 +39,10 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view =  inflater.inflate(R.layout.fragment_history, container, false);
+
+        final TextView mTextView = (TextView) view.findViewById(R.id.resultview);
+        final TextView mTextView2 = (TextView) view.findViewById(R.id.resultview2);
+
         GraphView graph = (GraphView) view.findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
                 new DataPoint(0, 74.66),
@@ -66,6 +83,33 @@ public class HistoryFragment extends Fragment {
                 new DataPoint(35, 73.22),
         });
         graph.addSeries(series);
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+        String url = "http://172.20.10.3:3000";
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                mTextView.setText("Response: " + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                mTextView.setText("Response: " + error.toString());
+            }
+        });
+
+        queue.add(jsObjRequest);
+
+        String url2 = "http://172.20.10.3:3000/recents/temperature/5";
+//        JsonArrayRequest jsObjRequest2 = new JsonArrayRequest(Request.Method.GET, url2, null, new Response.Listener<JSONArray>() {
+//            @Override
+//            public void onResponse(JSONArray response) {
+//
+//            }
+//        })
+
+//        queue.add(jsObjRequest2);
 
         return view;
     }
