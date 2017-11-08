@@ -19,6 +19,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -101,7 +102,7 @@ public class HistoryFragment extends Fragment {
 
         queue.add(jsObjRequest);
 
-        String url2 = "http://172.20.10.3:3000/recents/temperature/5";
+        String mJSONURLString = "http://172.20.10.3:3000/recents/temperature/5";
 //        JsonArrayRequest jsObjRequest2 = new JsonArrayRequest(Request.Method.GET, url2, null, new Response.Listener<JSONArray>() {
 //            @Override
 //            public void onResponse(JSONArray response) {
@@ -109,7 +110,43 @@ public class HistoryFragment extends Fragment {
 //            }
 //        })
 
-//        queue.add(jsObjRequest2);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mJSONURLString,null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+            // Do something with response
+            //mTextView.setText(response.toString());
+
+            // Process the JSON
+                mTextView2.setText(response.toString());
+
+/*                try{
+                    // Loop through the array elements
+                    for(int i=0;i<response.length();i++){
+                        // Get current json object
+                        JSONObject student = response.getJSONObject(i);
+
+                        // Get the current student (json object) data
+                        String firstName = student.getString("firstname");
+                        String lastName = student.getString("lastname");
+                        String age = student.getString("age");
+
+                        // Display the formatted json data in text view
+                        mTextView.append(firstName +" " + lastName +"\nAge : " + age);
+                        mTextView.append("\n\n");
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }*/
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+                // Do something when error occurred
+                mTextView2.setText("Response: " + error.toString());
+            }
+        });
+
+        queue.add(jsonArrayRequest);
 
         return view;
     }
