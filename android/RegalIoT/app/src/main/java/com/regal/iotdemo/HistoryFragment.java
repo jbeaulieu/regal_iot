@@ -44,50 +44,11 @@ public class HistoryFragment extends Fragment {
         final TextView mTextView = (TextView) view.findViewById(R.id.resultview);
         final TextView mTextView2 = (TextView) view.findViewById(R.id.resultview2);
 
-        GraphView graph = (GraphView) view.findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 74.66),
-                new DataPoint(1, 74.66),
-                new DataPoint(2, 74.66),
-                new DataPoint(3, 74.66),
-                new DataPoint(4, 74.48),
-                new DataPoint(5, 74.48),
-                new DataPoint(6, 78.26),
-                new DataPoint(7, 78.8),
-                new DataPoint(8, 78.98),
-                new DataPoint(9, 78.98),
-                new DataPoint(10, 78.62),
-                new DataPoint(11, 78.26),
-                new DataPoint(12, 78.26),
-                new DataPoint(13, 77.90),
-                new DataPoint(14, 77.72),
-                new DataPoint(15, 77.72),
-                new DataPoint(16, 77.54),
-                new DataPoint(17, 77.36),
-                new DataPoint(18, 77.18),
-                new DataPoint(19, 77.00),
-                new DataPoint(20, 76.82),
-                new DataPoint(21, 76.64),
-                new DataPoint(22, 76.28),
-                new DataPoint(23, 76.28),
-                new DataPoint(24, 76.1),
-                new DataPoint(25, 76.28),
-                new DataPoint(26, 76.1),
-                new DataPoint(27, 75.92),
-                new DataPoint(28, 75.92),
-                new DataPoint(29, 74.84),
-                new DataPoint(30, 74.38),
-                new DataPoint(31, 74.66),
-                new DataPoint(32, 74.48),
-                new DataPoint(33, 74.3),
-                new DataPoint(34, 73.22),
-                new DataPoint(35, 73.22),
-        });
-        graph.addSeries(series);
+        final GraphView graph = (GraphView) view.findViewById(R.id.graph);
 
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        String url = "http://172.20.10.3:3000";
+        String url = "http://10.34.251.55:3000/api/";
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -102,41 +63,35 @@ public class HistoryFragment extends Fragment {
 
         queue.add(jsObjRequest);
 
-        String mJSONURLString = "http://172.20.10.3:3000/recents/temperature/5";
-//        JsonArrayRequest jsObjRequest2 = new JsonArrayRequest(Request.Method.GET, url2, null, new Response.Listener<JSONArray>() {
-//            @Override
-//            public void onResponse(JSONArray response) {
-//
-//            }
-//        })
+        String mJSONURLString = "http://10.34.251.55:3000/api/recents/temperature/15";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mJSONURLString,null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-            // Do something with response
-            //mTextView.setText(response.toString());
 
-            // Process the JSON
-                mTextView2.setText(response.toString());
+                try{
+                    DataPoint[] temperatureDataPoints = new DataPoint[response.length()];
 
-/*                try{
-                    // Loop through the array elements
-                    for(int i=0;i<response.length();i++){
-                        // Get current json object
-                        JSONObject student = response.getJSONObject(i);
+                    for(int i=0; i<response.length(); i++) {
 
-                        // Get the current student (json object) data
-                        String firstName = student.getString("firstname");
-                        String lastName = student.getString("lastname");
-                        String age = student.getString("age");
+                        // Get the current json object
+                        JSONObject temperatureObject = response.getJSONObject(i);
 
-                        // Display the formatted json data in text view
-                        mTextView.append(firstName +" " + lastName +"\nAge : " + age);
-                        mTextView.append("\n\n");
+                        // Temperature records are retrieved by date descending (newest -> oldest), so we need to reverse the order before graphing over time
+                        // To do this, place the nth retrieved record into place [(length - 1) - n] in the array
+                        // n is 0-based, but length() is not, hence the -1 offset below
+                        temperatureDataPoints[response.length() - 1 - i] = new DataPoint(response.length() - 1 - i, temperatureObject.getDouble("temperature"));
                     }
-                }catch (JSONException e){
+
+                    mTextView2.setText(temperatureDataPoints[0].toString() + "; " + temperatureDataPoints[1].toString() + "; " + temperatureDataPoints[2].toString() + "; " + temperatureDataPoints[3].toString() + "; " + temperatureDataPoints[4].toString());
+
+                    LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(temperatureDataPoints);
+                    graph.addSeries(series);
+
+                } catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                    mTextView2.setText("Unable to parse temperature readings");
+                }
             }
         }, new Response.ErrorListener(){
             @Override
