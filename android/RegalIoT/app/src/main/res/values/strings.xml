@@ -18,4 +18,10 @@
     <string name="title_history">History</string>
     <string name="title_notifications">Notifications</string>
     <string name="empty_notifications">Warnings and important notifications, such as firmware updates, will show up here. \n No new updates available at this time</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
