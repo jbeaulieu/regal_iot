@@ -1,5 +1,6 @@
 package com.regal.iotdemo;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -90,11 +91,15 @@ public class NavigationActivity extends AppCompatActivity
             HistoryFragment historyFragment = new HistoryFragment();
             fragmentManager.beginTransaction().replace(R.id.defaultLayout, historyFragment, historyFragment.getTag()).commit();
         } else if (id == R.id.nav_alerts) {
-
+            NotificationFragment notificationFragment = new NotificationFragment();
+            fragmentManager.beginTransaction().replace(R.id.defaultLayout, notificationFragment, notificationFragment.getTag());
         } else if (id == R.id.nav_settings) {
-
+            Intent myIntent = new Intent(NavigationActivity.this, SettingsActivity.class);
+            NavigationActivity.this.startActivity(myIntent);
         } else if (id == R.id.nav_logout) {
-
+            // TODO: Destroy login credentials before logout
+            Intent myIntent = new Intent(NavigationActivity.this, LoginActivity.class);
+            NavigationActivity.this.startActivity(myIntent);
         } else if (id == R.id.nav_send) {
 
         }
