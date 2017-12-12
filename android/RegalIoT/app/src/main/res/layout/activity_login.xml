@@ -29,7 +29,7 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -82,4 +82,17 @@
 
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|end">
+
+
+        <Button
+            android:id="@+id/gateway_setup_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gateway Setup >" />
+
+    </LinearLayout>
 </LinearLayout>
