@@ -95,8 +95,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mGatewaySetupButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(LoginActivity.this, NavigationActivity.class);
-                LoginActivity.this.startActivity(myIntent);
+                Intent intent = new Intent(LoginActivity.this, GatewaySetupActivity.class);
+                LoginActivity.this.startActivity(intent);
             }
         });
 
