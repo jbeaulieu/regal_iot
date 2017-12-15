@@ -9,85 +9,87 @@ import android.content.IntentFilter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 public class GatewayBluetoothActivity extends AppCompatActivity {
 
-    public static final int REQUEST_ENABLE_BT = 1;
+    private static final String TAG = "BluetoothActivity";
+    BluetoothAdapter mBlueToothAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setupActionBar();
-        setContentView(R.layout.activity_gateway_bluetooth);
-
-        final ArrayAdapter<String> mArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-
-        ListView mListView = (ListView) findViewById(R.id.bluetooth_list);
-
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(bluetoothAdapter == null) {
-            /* TODO: Toast to inform user that gateway cannot be configured with this device
-                Device does not support bluetooth.
-             */
-        }
-        else if (!bluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
-
-
-        bluetoothAdapter.startDiscovery();
-
-
-        mReceiver = new BroadcastReceiver() {
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-
-                //Finding devices
-                if (BluetoothDevice.ACTION_FOUND.equals(action))
-                {
-                    // Get the BluetoothDevice object from the Intent
-                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                    // Add the name and address to an array adapter to show in a ListView
-                    mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
-                }
-            }
-        };
-
-        mArrayAdapter.add("Testing");
-
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(mReceiver, filter);
-
-        mListView.setAdapter(mArrayAdapter);
-    }
-
-    // Create a BroadcastReceiver for ACTION_FOUND.
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+    // Create a BroadcastReceiver for ACTION_STATE_CHANGED.
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                // Discovery has found a device. Get the BluetoothDevice
-                // object and its info from the Intent.
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                String deviceName = device.getName();
-                String deviceHardwareAddress = device.getAddress(); // MAC address
+            // When the bluetooth receiver changes action state
+            if (action.equals(mBlueToothAdapter.ACTION_STATE_CHANGED)) {
+                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, mBlueToothAdapter.ERROR);
+
+                switch (state) {
+                    case BluetoothAdapter.STATE_ON:
+                        Log.d(TAG, "STATE ON");
+                        break;
+                    case BluetoothAdapter.STATE_TURNING_ON:
+                        Log.d(TAG, "STATE TURNING ON");
+                        break;
+                    case BluetoothAdapter.STATE_OFF:
+                        Log.d(TAG, "STATE OFF");
+                        break;
+                    case BluetoothAdapter.STATE_TURNING_OFF:
+                        Log.d(TAG, "STATE TURNING OFF");
+                        break;
+                }
             }
         }
     };
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_gateway_bluetooth);
+        setupActionBar();
 
-        // Unregister the ACTION_FOUND receiver.
-        unregisterReceiver(mReceiver);
+        Button mBluetoothButton = (Button) findViewById(R.id.bluetooth_toggle);
+
+        mBlueToothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        mBluetoothButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: Toggling BT");
+                ToggleBluetooth();
+            }
+        });
+    }
+
+    public void ToggleBluetooth() {
+        if(mBlueToothAdapter == null) {
+            Log.d(TAG, "ToggleBluetooth: Device does not support BT");
+        }
+        else if(!mBlueToothAdapter.isEnabled()) {   // BT is disabled, turn on
+            Log.d(TAG, "ToggleBluetooth: Turning on BT");
+            Intent enableBTIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(enableBTIntent);
+            // Register new IntentFilter to catch BT state changes - changes will flag mBroadcastReceiver
+            IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+            registerReceiver(mBroadcastReceiver, BTIntent);
+        }
+        else if(mBlueToothAdapter.isEnabled()) {    // BT is already enabled, turn off
+            Log.d(TAG, "ToggleBluetooth: Turning off BT");
+            mBlueToothAdapter.disable();
+            // Register new IntentFilter to catch BT state changes - changes will flag mBroadcastReceiver
+            IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+            registerReceiver(mBroadcastReceiver, BTIntent);
+        }
+    }
+
+    // Unregister broadcast receiver when application is paused or destroyed.
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "Calling onDestroy()");
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
     }
 
     private void setupActionBar() {
