@@ -14,21 +14,29 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bluetooth happening here" />
+            android:text="" />
 
         <Button
             android:id="@+id/bluetooth_on_off_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
-            android:text="Toggle"/>
+            android:text="On/Off"/>
 
         <Button
             android:id="@+id/bluetooth_discovery_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
+            android:layout_gravity="center"
             android:text="Discover"/>
+
+        <Button
+            android:id="@+id/bluetooth_find_unpaired_devices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:text="Find Unpaired"
+            android:onClick="FindUnpaired"/>
 
         <Button
             android:id="@+id/cancel_button"
@@ -44,10 +52,10 @@
             android:layout_gravity="bottom|end"
             android:text="Next" />
 
-        <!--<ListView-->
-            <!--android:id="@+id/bluetooth_list"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent" />-->
+        <ListView
+            android:id="@+id/bluetooth_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 
