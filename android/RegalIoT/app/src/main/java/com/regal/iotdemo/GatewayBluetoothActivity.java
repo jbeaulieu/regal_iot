@@ -8,13 +8,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckedTextView;
+import android.widget.GridLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -127,6 +133,42 @@ public class GatewayBluetoothActivity extends AppCompatActivity {
                 ToggleDiscovery();
             }
         });
+
+        final ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.bt_connection_progressBar);
+        final Button nextButton = (Button) findViewById(R.id.next_button);
+        final GridLayout gridLayout = (GridLayout) findViewById(R.id.grid_layout);
+        final TextView textView = (TextView) findViewById(R.id.searching_instructions_textview);
+        final TextView finishTextView = (TextView) findViewById(R.id.finishing_setup_textview);
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GatewayBluetoothActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final Handler progressBarHandler = new Handler() {
+            @Override
+            public void handleMessage(Message message) {
+                mProgressBar.refreshDrawableState();
+                textView.setVisibility(View.GONE);
+                gridLayout.setVisibility(View.VISIBLE);
+            }
+        };
+        progressBarHandler.sendMessageDelayed(new Message(), 10000);
+
+        final Handler checkedHandler = new Handler() {
+            @Override
+            public void handleMessage(Message message) {
+                mProgressBar.setVisibility(View.GONE);
+                finishTextView.setText("Done!");
+                nextButton.setVisibility(View.VISIBLE);
+                nextButton.setEnabled(true);
+            }
+        };
+
+        checkedHandler.sendMessageDelayed(new Message(), 15000);
     }
 
     public void ToggleBluetooth() {

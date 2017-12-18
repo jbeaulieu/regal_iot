@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
             android:id="@+id/nav_motor_status"
             android:icon="@drawable/menu_status"
             android:title="Status" />
@@ -27,7 +31,7 @@
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Send Feedback" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_menu_share"

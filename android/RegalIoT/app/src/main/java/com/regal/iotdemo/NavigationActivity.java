@@ -18,6 +18,8 @@ import android.view.MenuItem;
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    FragmentManager fragmentManager = getSupportFragmentManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,9 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        HomeFragment homeFragment = new HomeFragment();
+        fragmentManager.beginTransaction().replace(R.id.defaultLayout, homeFragment, homeFragment.getTag()).commit();
     }
 
     @Override
@@ -82,9 +87,10 @@ public class NavigationActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        if (id == R.id.nav_motor_status) {
+        if (id == R.id.nav_home) {
+            HomeFragment homeFragment = new HomeFragment();
+            fragmentManager.beginTransaction().replace(R.id.defaultLayout, homeFragment, homeFragment.getTag()).commit();
+        } else if (id == R.id.nav_motor_status) {
             StatusFragment statusFragment = new StatusFragment();
             fragmentManager.beginTransaction().replace(R.id.defaultLayout, statusFragment, statusFragment.getTag()).commit();
         } else if (id == R.id.nav_motor_history) {

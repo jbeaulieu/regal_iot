@@ -1,0 +1,229 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.regal.iotdemo.HomeFragment">
+
+    <GridLayout
+        android:id="@+id/grid_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="2"
+        android:layout_gravity="top|center"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/layout_border">
+
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:src="@drawable/status_yellow_circle"
+            android:layout_rowSpan="2"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"/>
+
+        <TextView
+            android:text="A001"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_columnWeight="3"
+            android:layout_columnSpan="3"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text="Paused"
+            android:textColor="#7F7F00"
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text="70.2F"
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text="0.000g"
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    </GridLayout>
+
+
+    <GridLayout
+        android:id="@+id/grid_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="2"
+        android:layout_gravity="top|center"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/layout_border">
+
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:src="@drawable/status_green_check"
+            android:layout_rowSpan="2"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"/>
+
+        <TextView
+            android:text="A002"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_columnWeight="3"
+            android:layout_columnSpan="3"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text="Running"
+            android:textColor="#007F00"
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text="78.3F"
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text="0.001g"
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    </GridLayout>
+
+    <GridLayout
+        android:id="@+id/grid_layout_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="2"
+        android:layout_gravity="top|center"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/layout_border">
+
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:src="@drawable/status_red_x"
+            android:layout_rowSpan="2"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"/>
+
+        <TextView
+            android:text="HelloWorld"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_columnWeight="3"
+            android:layout_columnSpan="3"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text="Offline"
+            android:textColor="#EE0000"
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text=""
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text=""
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    </GridLayout>
+
+    <GridLayout
+        android:id="@+id/grid_layout_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="2"
+        android:layout_gravity="top|center"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/layout_border">
+
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:src="@drawable/status_red_x"
+            android:layout_rowSpan="2"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"/>
+
+        <TextView
+            android:text="Security"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_columnWeight="3"
+            android:layout_columnSpan="3"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text="OFFLINE"
+            android:textColor="#EE0000"
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text=""
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text=""
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    </GridLayout>
+
+    <GridLayout
+        android:id="@+id/grid_layout_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="2"
+        android:layout_gravity="top|center"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/layout_border">
+
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:src="@drawable/status_red_x"
+            android:layout_rowSpan="2"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"/>
+
+        <TextView
+            android:text="Testing"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_columnWeight="3"
+            android:layout_columnSpan="3"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text="OFFLINE"
+            android:textColor="#EE0000"
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text=""
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+        <TextView
+            android:text=""
+            android:layout_gravity="fill_horizontal"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    </GridLayout>
+
+</LinearLayout>

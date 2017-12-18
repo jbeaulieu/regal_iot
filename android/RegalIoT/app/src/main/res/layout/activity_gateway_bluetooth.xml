@@ -11,24 +11,66 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/searching_instructions_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text="Searching for Regal IoT Gateway \n Please make sure Gateway is powered on and ready to pair via bluetooth" />
+
+        <ProgressBar
+            android:id="@+id/bt_connection_progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <GridLayout
+            android:id="@+id/grid_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/gateway_found_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/status_green_check"/>
+
+            <TextView
+                android:id="@+id/gateway_found_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:foregroundTint="#007F00"
+                android:text="Gateway Found!" />
+
+            <TextView
+                android:id="@+id/finishing_setup_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Finishing Setup..." />
+
+        </GridLayout>
+
 
         <Button
             android:id="@+id/bluetooth_on_off_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
-            android:text="On/Off"/>
+            android:text="On/Off"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/bluetooth_discovery_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Discover"/>
+            android:text="Discover"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/bluetooth_find_unpaired_devices"
@@ -36,7 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
             android:text="Find Unpaired"
-            android:onClick="FindUnpaired"/>
+            android:onClick="FindUnpaired"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/cancel_button"
@@ -50,12 +93,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
+            android:visibility="gone"
             android:text="Next" />
 
         <ListView
             android:id="@+id/bluetooth_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
     </FrameLayout>
 
